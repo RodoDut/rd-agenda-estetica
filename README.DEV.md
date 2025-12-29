@@ -51,3 +51,35 @@ Problemas comunes:
 - Si necesitas que la instalación incluya datos de ejemplo, podemos añadir un script `init.sql` o usar WP-CLI import.
 
 ¿Quieres que añada también un archivo `.env.example` para parametrizar puertos y credenciales o que incluya phpMyAdmin en el compose? 
+
+## Developer setup
+
+Pasos mínimos para poner el entorno de desarrollo en una máquina nueva:
+
+1. Clona el repositorio y cambia a la rama de trabajo (ej. `rdt-centros-core`).
+
+2. Levanta los contenedores Docker:
+
+```pwsh
+docker compose up -d
+```
+
+3. Instala dependencias de desarrollo (stubs para que el IDE reconozca WordPress):
+
+```pwsh
+# desde la raíz del repo
+composer install --no-interaction
+```
+
+Si no tienes Composer instalado localmente, puedes ejecutar Composer dentro de Docker (ejemplo para Windows PowerShell):
+
+```pwsh
+docker run --rm -v C:\rdtecnobelleza:/app -w /app composer install --no-interaction
+```
+
+4. Abre http://localhost:8000 y completa la instalación de WordPress mediante el instalador web o usando WP-CLI.
+
+Notas:
+- `composer install` instalará las definiciones de PHP (stubs) que permiten a tu editor (Intelephense) reconocer funciones y clases de WordPress sin incluir el core en el repositorio.
+- No comitees la carpeta `vendor/`. Si alguien clona el repo, debe ejecutar `composer install` antes de trabajar.
+

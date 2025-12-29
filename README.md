@@ -57,6 +57,33 @@ Este repositorio contiene la personalización de un sitio WordPress para la gest
 
 ---
 
+## Development setup
+
+Si vas a desarrollar localmente, estos son los pasos recomendados:
+
+1. Clonar el repo y cambiar a la rama de desarrollo (por ejemplo `rdt-centros-core`).
+2. Levantar el entorno Docker:
+
+```pwsh
+docker compose up -d
+```
+
+3. Instalar dependencias de desarrollo (stubs) para que el IDE reconozca las clases/funciones de WordPress:
+
+```pwsh
+composer install
+```
+
+Si no tenés Composer instalado localmente, podés ejecutar Composer dentro de Docker:
+
+```pwsh
+docker run --rm -v C:\rdtecnobelleza:/app -w /app composer install
+```
+
+4. Abrir http://localhost:8000 y completar la instalación de WordPress (o usar WP-CLI si prefieres automatizarla).
+
+Notas: no se versiona `vendor/` ni el core; `composer install` solo descarga las definiciones (stubs) y otras dependencias de desarrollo.
+
 ## 💡 Notas de seguridad
 - **No se sube ningún archivo sensible** (como `wp-config.php` o datos de usuarios) al repositorio.
 - El código está preparado para ser desplegado en un entorno WordPress seguro y actualizado.
