@@ -43,3 +43,9 @@ wp-config-sample.php                        # Sample config :contentReference[oa
 # Ignore all other themes and plugins
 /wp-content/themes/*                       # Ignore all themes :contentReference[oaicite:20]{index=20}
 
+# Composer vendor directory
+/vendor/
+
+# Allow committing VSCode workspace settings file (we keep per-project settings)
+!/.vscode/settings.json
+
