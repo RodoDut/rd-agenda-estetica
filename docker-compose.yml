@@ -25,5 +25,15 @@ services:
     volumes:
       - ./wp-content:/var/www/html/wp-content:rw
 
+  # Utility container for running WP-CLI commands
+  cli:
+    image: wordpress:cli
+    depends_on:
+      - db
+    volumes:
+      - ./wp-content:/var/www/html/wp-content:rw
+    working_dir: /var/www/html
+    tty: true
+
 volumes:
   db_data:

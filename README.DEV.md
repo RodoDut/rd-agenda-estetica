@@ -83,3 +83,32 @@ Notas:
 - `composer install` instalará las definiciones de PHP (stubs) que permiten a tu editor (Intelephense) reconocer funciones y clases de WordPress sin incluir el core en el repositorio.
 - No comitees la carpeta `vendor/`. Si alguien clona el repo, debe ejecutar `composer install` antes de trabajar.
 
+## Usar el servicio `cli` (WP-CLI)
+
+Hemos añadido un servicio `cli` en `docker-compose.yml` para ejecutar WP-CLI sin tener que entrar al contenedor web. Es práctico para tareas rápidas y scripts.
+
+Ejemplos útiles (ejecutar desde la raíz del repo):
+
+```pwsh
+# Mostrar info de WP-CLI
+docker compose run --rm cli wp --info
+
+# Instalar WordPress (si la DB está vacía)
+docker compose run --rm cli wp core install --url="http://localhost:8000" --title="Local RDTeconobelleza" --admin_user="admin" --admin_password="adminpass" --admin_email="dev@example.com"
+
+# Listar plugins
+docker compose run --rm cli wp plugin list
+
+# Activar un plugin
+docker compose run --rm cli wp plugin activate rdt-centros-core
+
+# Importar una base de datos (archivo site.sql en la raíz)
+docker compose run --rm -v ${PWD}:/work -w /work cli wp db import site.sql
+
+# Buscar y reemplazar URLs (útil después de importar DB de prod)
+docker compose run --rm cli wp search-replace 'https://mi-produccion.com' 'http://localhost:8000' --all-tables
+```
+
+`--rm` hace que el contenedor se borre automáticamente al terminar. Si preferís, también podés usar `docker compose exec wordpress wp ...` si la imagen `wordpress` ya incluye WP-CLI.
+
+
