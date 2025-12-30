@@ -20,8 +20,8 @@ wp-*.php                                    # Other root PHP files :contentRefer
 wp-config.php                               # Contains DB credentials :contentReference[oaicite:28]{index=28}
 wp-config-sample.php                        # Sample config :contentReference[oaicite:29]{index=29}
 .vscode/                                  # VSCode settings :contentReference[oaicite:30]{index=30}
-/.idea/                                    # JetBrains IDE settings :contentReference[oaicite:31]{index=31}
-
+/.idea/                                    # JetBrains IDE settings :contentReference[oaicite:31]{index=31}.env                                       # Local environment variables (credentials) - do NOT commit
+.env.*                                     # Local env variants (eg .env.local)
 # ----------------------------------------
 # User Content / Uploads
 # ----------------------------------------

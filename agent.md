@@ -25,6 +25,7 @@ This document defines the policies, engineering principles and operational rules
 
 - Nunca exponer credenciales, claves, contraseñas, o dumps de base de datos en el repositorio.
 - `wp-config.php`, backups, `.env` y archivos de base de datos deben permanecer fuera del repo. Si han sido subidos accidentalmente, reportar y coordinar limpieza del historial (BFG o git filter-repo).
+- Para credenciales locales (SFTP, tokens, etc.) preferir un archivo `.env` local que **no** se versiona; incluir en el repo un `.env.example` con placeholders y usar scripts (por ejemplo `generate-sftp`) para generar los archivos de configuración locales desde `.env`.
 - Validar entradas externas (forms, webhooks) y tratar datos personales según leyes aplicables. Minimizar almacenamiento de datos sensibles.
 
 ## Comunicaciones y autenticación
