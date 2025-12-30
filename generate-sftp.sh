@@ -10,13 +10,23 @@ set -a
 . ./.env
 set +a
 
+# Determine port default (22 for sftp, 21 for ftp)
+PORT=${SFTP_PORT:-}
+if [ -z "$PORT" ]; then
+  if [ "${SFTP_PROTOCOL:-ftp}" = "sftp" ]; then
+    PORT=22
+  else
+    PORT=21
+  fi
+fi
+
 mkdir -p .vscode
 cat > .vscode/sftp.json <<JSON
 {
   "name": "SFTP (local)",
   "host": "${SFTP_HOST}",
   "protocol": "${SFTP_PROTOCOL:-ftp}",
-  "port": ${SFTP_PORT:-21},
+  "port": ${PORT},
   "passive": ${SFTP_PASSIVE:-true},
   "username": "${SFTP_USER}",
 $( if [ "${SFTP_PROTOCOL:-ftp}" = "sftp" ] && [ -n "${SFTP_PRIVATE_KEY:-}" ]; then
