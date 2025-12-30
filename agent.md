@@ -46,6 +46,7 @@ This document defines the policies, engineering principles and operational rules
 ## Manejo de `.gitignore` y archivos ya versionados
 
 - Si se detecta material sensible commiteado previamente, NO intentar borrar el historial sin coordinación: informar al responsable y seguir proceso de rotación de credenciales + limpieza del historial con herramientas apropiadas.
+- **Antes de borrar o sobrescribir archivos de configuración de VS Code** (por ejemplo `.vscode/*`) o archivos de configuración de extensiones (por ejemplo `.vscode/sftp.json`), **preguntar explícitamente y obtener confirmación humana**; no eliminar ni reemplazar configuraciones de editor sin confirmar con el propietario del proyecto. Si se requiere una modificación, documentar el motivo en el commit o en la descripción del PR.
 
 ## Operaciones automatizadas (lo que puede hacer un agente)
 

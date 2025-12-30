@@ -1,0 +1,26 @@
+{
+  "_instructions": "Este archivo es un ejemplo. Copia/renombra a 'sftp.json' en tu máquina local y completa las credenciales. NO cometeees el archivo con credenciales. Mantén las credenciales fuera del repositorio.",
+  "name": "ConexionHostingerBelleza (ejemplo)",
+  "host": "example.com",
+  "protocol": "ftp",
+  "port": 21,
+  "passive": true,
+  "username": "YOUR_USERNAME_HERE",
+  "password": "YOUR_PASSWORD_HERE",
+  "context": "c:/rdtecnobelleza",
+  "remotePath": "/public_html",
+  "uploadOnSave": false,
+  "downloadOnOpen": false,
+  "syncMode": "full",
+  "ignore": [
+    "**/.vscode/**",
+    "**/.git/**",
+    "**/.DS_Store"
+  ],
+  "watcher": {
+    "files": "**/*",
+    "autoUpload": false,
+    "autoDelete": false
+  },
+  "remoteTimeOffsetInHours": 0
+}
