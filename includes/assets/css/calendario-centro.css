@@ -1,0 +1,870 @@
+/* ============================================================
+   Calendario Centro Estético — rdt-centros-core
+   Paleta integrada al tema del sitio.
+   ============================================================ */
+
+/* ── Variables ─────────────────────────────────────────────── */
+/* Movidas a :root para permitir que el estilo visual se comparta 
+   entre el panel interno y la agenda pública siguiendo principios DRY. */
+:root {
+    --rdt-primario:          #4A7A84;
+    --rdt-primario-hover:    #3a6470;
+    --rdt-primario-claro:    #d6eaed;
+
+    --rdt-ocupado-bg:        #fceef1;
+    --rdt-ocupado-borde:     #e8a0aa;
+    --rdt-ocupado-acento:    #c0606e;
+
+    --rdt-libre-bg:          #fdf6e3;
+    --rdt-libre-borde:       #ddb96a;
+    --rdt-libre-texto:       #8a6a1f;
+
+    --rdt-texto:             #0d141a;
+    --rdt-subtexto:          #6b6067;
+    --rdt-borde:             #e6e0e2;
+    --rdt-fondo:             #ffffff;
+    --rdt-fondo-banda:       #faf8f6;
+
+    --rdt-radio:             14px;
+    --rdt-radio-inner:       10px;
+    --rdt-sombra:            0 4px 20px rgba(74, 122, 132, 0.10);
+    --rdt-fuente:            -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── Contenedor principal ───────────────────────────────────── */
+#rdt-calendario {
+    font-family:   var(--rdt-fuente);
+    color:         var(--rdt-texto);
+    background:    var(--rdt-fondo);
+    border-radius: var(--rdt-radio);
+    box-shadow:    var(--rdt-sombra);
+    border:        1px solid var(--rdt-borde);
+    max-width:     680px;
+    margin:        0 auto;
+    overflow:      visible !important;
+}
+
+/* ── Header: flechas + título ───────────────────────────────── */
+.rdt-cal-header {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         18px 20px;
+    background:      var(--rdt-primario);
+    gap:             12px;
+    border-radius:   var(--rdt-radio) var(--rdt-radio) 0 0;
+}
+
+.rdt-cal-titulo {
+    flex:            1;
+    text-align:      center;
+    margin:          0;
+    font-size:       1rem;
+    font-weight:     600;
+    color:           #ffffff;
+    text-transform:  capitalize;
+    letter-spacing:  0.01em;
+    line-height:     1.3;
+}
+
+.rdt-cal-nav {
+    flex-shrink:     0;
+    width:           36px;
+    height:          36px;
+    border:          none;
+    border-radius:   50%;
+    background:      rgba(255, 255, 255, 0.18);
+    color:           #ffffff;
+    font-size:       1rem;
+    cursor:          pointer;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    transition:      background 0.2s ease, transform 0.1s ease;
+    line-height:     1;
+}
+
+.rdt-cal-nav:hover:not(:disabled) {
+    background:  rgba(255, 255, 255, 0.32);
+    transform:   scale(1.08);
+}
+
+.rdt-cal-nav:disabled {
+    opacity:   0.3;
+    cursor:    not-allowed;
+    transform: none;
+}
+
+/* ── Banda de estado de jornada ─────────────────────────────── */
+.rdt-cal-estado {
+    display:       flex;
+    align-items:   center;
+    gap:           10px;
+    padding:       10px 20px;
+    background:    var(--rdt-fondo-banda);
+    border-bottom: 1px solid var(--rdt-borde);
+    font-size:     0.84rem;
+    min-height:    42px;
+}
+
+.rdt-cal-horario-jornada {
+    color:     var(--rdt-subtexto);
+    font-size: 0.82rem;
+}
+
+/* ── Badges de estado ───────────────────────────────────────── */
+.rdt-badge {
+    display:         inline-flex;
+    align-items:     center;
+    padding:         3px 10px;
+    border-radius:   999px;
+    font-size:       0.72rem;
+    font-weight:     700;
+    letter-spacing:  0.04em;
+    text-transform:  uppercase;
+    white-space:     nowrap;
+}
+
+.rdt-badge--activa      { background: #d6eaed; color: #2e6b74; }
+.rdt-badge--completada  { background: #dbeafe; color: #1e40af; }
+.rdt-badge--cancelada   { background: #fee2e2; color: #991b1b; }
+.rdt-badge--expirada    { background: #f3f4f6; color: #6b7280; }
+.rdt-badge--sin-jornada { background: #fef3c7; color: #92400e; }
+
+/* ── Grilla de slots ────────────────────────────────────────── */
+.rdt-cal-grilla {
+    padding:        14px 16px;
+    display:        flex;
+    flex-direction: column;
+    gap:            8px;
+    overflow:       visible !important;
+}
+
+/* ── Slot base ──────────────────────────────────────────────── */
+.rdt-slot {
+    position:      relative;
+    display:       flex;
+    align-items:   flex-start;
+    gap:           12px;
+    padding:       12px 14px;
+    border-radius: var(--rdt-radio-inner);
+    border:        1px solid transparent;
+    transition:    box-shadow 0.15s ease, transform 0.1s ease;
+    box-sizing:    border-box;
+    width:         100%;
+    overflow:      visible !important;
+}
+
+.rdt-slot:has(.is-open) {
+    z-index: 100001;
+}
+
+/* ── Slot OCUPADO ───────────────────────────────────────────── */
+.rdt-slot--ocupado {
+    background:   var(--rdt-ocupado-bg);
+    border-color: var(--rdt-ocupado-borde);
+    flex-wrap:    wrap;
+}
+
+.rdt-slot--ocupado:hover {
+    box-shadow: 0 2px 10px rgba(192, 96, 110, 0.15);
+    transform:  translateY(-1px);
+}
+
+/* ── Slot LIBRE ─────────────────────────────────────────────── */
+.rdt-slot--libre {
+    background:   var(--rdt-libre-bg);
+    border-color: var(--rdt-libre-borde);
+    align-items:  center;
+}
+
+/* ── Columna hora ───────────────────────────────────────────── */
+.rdt-slot__hora {
+    flex-shrink:          0;
+    width:                52px;
+    font-size:            0.88rem;
+    font-weight:          700;
+    font-variant-numeric: tabular-nums;
+    padding-top:          2px;
+}
+
+.rdt-slot--ocupado .rdt-slot__hora { color: var(--rdt-ocupado-acento); }
+.rdt-slot--libre   .rdt-slot__hora { color: var(--rdt-libre-texto);    }
+
+/* ── Cuerpo del turno ocupado ───────────────────────────────── */
+.rdt-slot__detalle {
+    flex:        1;
+    display:     flex;
+    flex-wrap:   wrap;
+    align-items: center;
+    gap:         4px 10px;
+    min-width:   0;
+}
+
+.rdt-slot__cliente {
+    font-weight:   600;
+    font-size:     0.95rem;
+    color:         var(--rdt-texto);
+    white-space:   nowrap;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+}
+
+.rdt-slot__tratamiento {
+    font-size:     0.78rem;
+    color:         var(--rdt-subtexto);
+    background:    rgba(192, 96, 110, 0.10);
+    padding:       2px 8px;
+    border-radius: 999px;
+    white-space:   nowrap;
+}
+
+.rdt-slot__hasta {
+    font-size:  0.78rem;
+    color:      var(--rdt-subtexto);
+    width:      100%;
+    margin-top: 2px;
+}
+
+/* ── Detalle slot libre ─────────────────────────────────────── */
+.rdt-slot__detalle--libre {
+    font-size:  0.85rem;
+    color:      var(--rdt-libre-texto);
+    font-style: italic;
+}
+
+/* ── Contacto: WhatsApp Reminder ────────────────────────────── */
+.rdt-slot__contacto {
+    width:          100%;
+    margin-top:     10px;
+    display:        flex;
+    flex-direction: column;
+    gap:            8px;
+    box-sizing:     border-box;
+}
+
+/* Botón principal — estado: pendiente de envío */
+.rdt-slot__btn-whatsapp {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             8px;
+    width:           100%;
+    box-sizing:      border-box;
+    padding:         8px 12px;
+    border-radius:   8px;
+    border:          1.5px solid #25D366;
+    background:      #ffffff;
+    color:           #128C7E;
+    font-size:       0.82rem;
+    font-weight:     700;
+    cursor:          pointer;
+    font-family:     inherit;
+    transition:      background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rdt-slot__btn-whatsapp:hover:not(:disabled) {
+    background: #25D366;
+    color:      #ffffff;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+
+.rdt-slot__btn-whatsapp:disabled {
+    opacity:      0.45;
+    cursor:       not-allowed;
+    border-color: var(--rdt-borde);
+    color:        var(--rdt-subtexto);
+}
+
+/* Badge — estado: recordatorio ya enviado.
+   Reemplaza al botón una vez que se envió el recordatorio.
+   Muestra ícono ✓ y hora del envío de forma persistente.
+   El estado se recupera de localStorage al recargar la grilla,
+   por lo que sobrevive a navegaciones entre jornadas y
+   recargas por visibilitychange. */
+.rdt-slot__wpp-enviado {
+    display:       flex;
+    align-items:   center;
+    gap:           7px;
+    padding:       7px 12px;
+    border-radius: 8px;
+    background:    #f0fdf4;
+    border:        1.5px solid #86efac;
+    font-size:     0.78rem;
+    font-weight:   600;
+    color:         #166534;
+    width:         100%;
+    box-sizing:    border-box;
+}
+
+.rdt-slot__wpp-check {
+    font-size:   1rem;
+    line-height: 1;
+    color:       #16a34a;
+    flex-shrink: 0;
+}
+
+.rdt-slot__wpp-texto {
+    flex: 1;
+}
+
+/* ── Estados: carga / error / vacío ────────────────────────── */
+.rdt-cal-cargando,
+.rdt-cal-error,
+.rdt-cal-vacio {
+    text-align:    center;
+    padding:       32px 16px;
+    font-size:     0.9rem;
+    border-radius: var(--rdt-radio-inner);
+    margin:        0;
+}
+
+.rdt-cal-cargando { color: var(--rdt-subtexto); }
+.rdt-cal-error    { color: #991b1b; background: #fee2e2; }
+.rdt-cal-vacio    { color: var(--rdt-subtexto); background: var(--rdt-fondo-banda); }
+
+/* ── Slot libre: botón de reservar ─────────────────────────── */
+.rdt-slot--libre { cursor: default; }
+
+.rdt-slot__accion {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.rdt-slot__btn-reservar {
+    padding:         5px 12px;
+    border:          1.5px solid var(--rdt-libre-borde);
+    border-radius:   8px;
+    background:      transparent;
+    color:           var(--rdt-libre-texto);
+    font-size:       0.78rem;
+    font-weight:     600;
+    font-family:     var(--rdt-fuente);
+    cursor:          pointer;
+    white-space:     nowrap;
+    transition:      background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.rdt-slot__btn-reservar:hover {
+    background:   var(--rdt-libre-borde);
+    color:        #ffffff;
+    border-color: var(--rdt-libre-borde);
+}
+
+/* ── Modal overlay ──────────────────────────────────────────── */
+.rdt-modal-overlay {
+    display:         none;
+    position:        fixed;
+    inset:           0;
+    background:      rgba(13, 20, 26, 0.45);
+    z-index:         9999;
+    align-items:     center;
+    justify-content: center;
+    padding:         16px;
+    box-sizing:      border-box;
+}
+
+.rdt-modal-overlay--visible { display: flex; }
+
+body.rdt-modal-abierto { overflow: hidden; }
+
+/* ── Modal contenedor ───────────────────────────────────────── */
+.rdt-modal {
+    background:    #ffffff;
+    border-radius: var(--rdt-radio, 14px);
+    box-shadow:    0 8px 40px rgba(13, 20, 26, 0.18);
+    width:         100%;
+    max-width:     480px;
+    max-height:    90vh;
+    overflow-y:    auto;
+    font-family:   var(--rdt-fuente);
+    animation:     rdt-modal-in 0.18s ease;
+}
+
+@keyframes rdt-modal-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Modal header ───────────────────────────────────────────── */
+.rdt-modal-header {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         18px 20px;
+    background:      #4A7A84;
+    border-radius:   var(--rdt-radio, 14px) var(--rdt-radio, 14px) 0 0;
+}
+
+.rdt-modal-titulo {
+    margin:      0;
+    color:       #ffffff;
+    font-size:   1rem;
+    font-weight: 600;
+}
+
+.rdt-modal-cerrar {
+    background:    transparent;
+    border:        none;
+    color:         rgba(255,255,255,0.8);
+    font-size:     1.1rem;
+    cursor:        pointer;
+    line-height:   1;
+    padding:       4px 6px;
+    border-radius: 4px;
+    transition:    color 0.15s ease, background 0.15s ease;
+}
+
+.rdt-modal-cerrar:hover {
+    color:       #ffffff;
+    background:  rgba(255,255,255,0.15);
+}
+
+/* ── Modal cuerpo ───────────────────────────────────────────── */
+.rdt-modal-cuerpo {
+    padding:        20px;
+    display:        flex;
+    flex-direction: column;
+    gap:            4px;
+}
+
+.rdt-modal-subtitulo {
+    margin:         0 0 12px;
+    font-size:      0.88rem;
+    color:          #6b6067;
+    font-style:     italic;
+    text-align:     center;
+    text-transform: capitalize;
+}
+
+/* ── Modal labels, inputs y selects ─────────────────────────── */
+.rdt-modal-label {
+    display:        block;
+    font-size:      0.78rem;
+    font-weight:    600;
+    color:          #6b6067;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom:  4px;
+    margin-top:     10px;
+}
+
+.rdt-modal-label:first-of-type { margin-top: 0; }
+
+.rdt-modal-select,
+.rdt-modal-input {
+    display:       block;
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid #e6e0e2;
+    border-radius: 10px;
+    background:    #faf8f6;
+    color:         #0d141a;
+    font-size:     0.92rem;
+    font-family:   var(--rdt-fuente);
+    margin-bottom: 2px;
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rdt-modal-select {
+    appearance:          none;
+    -webkit-appearance:  none;
+    background-image:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A7A84' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:   no-repeat;
+    background-position: right 14px center;
+    padding-right:       38px;
+    cursor:              pointer;
+}
+
+.rdt-modal-select:focus,
+.rdt-modal-input:focus {
+    outline:      none;
+    border-color: #4A7A84;
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.12);
+}
+
+.rdt-modal-input::placeholder { color: #a09499; }
+
+/* ── Modal botón submit ─────────────────────────────────────── */
+.rdt-modal-btn {
+    display:        block;
+    width:          100%;
+    box-sizing:     border-box;
+    padding:        12px 20px;
+    margin-top:     14px;
+    border:         none;
+    border-radius:  10px;
+    background:     #4A7A84;
+    color:          #ffffff;
+    font-size:      0.95rem;
+    font-weight:    600;
+    font-family:    var(--rdt-fuente);
+    cursor:         pointer;
+    letter-spacing: 0.02em;
+    transition:     background 0.2s ease, transform 0.1s ease;
+}
+
+.rdt-modal-btn:hover:not(:disabled) { background: #3a6470; transform: translateY(-1px); }
+.rdt-modal-btn:disabled             { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+/* ── Acciones del slot ──────────────────────────────────────── */
+.rdt-slot__acciones {
+    width:      100%;
+    margin-top: 10px;
+    box-sizing: border-box;
+    position:   relative;
+    z-index:    auto;
+}
+
+/* ── Badge de estado en el detalle del slot ──────────────── */
+.rdt-badge-estado {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            4px;
+    padding:        2px 8px;
+    border-radius:  999px;
+    font-size:      0.68rem;
+    font-weight:    700;
+    letter-spacing: 0.03em;
+    white-space:    nowrap;
+    margin-bottom:  4px;
+    width:          100%;
+    box-sizing:     border-box;
+}
+
+.rdt-badge-estado--aprobado     { background: #d6eaed; color: #2e6b74;  border: 1px solid #a8d5db; }
+.rdt-badge-estado--pendiente  { background: #fff3cd; color: #856404;  border: 1px solid #ffc107; }
+.rdt-badge-estado--cancelado  { background: #fee2e2; color: #991b1b;  border: 1px solid #fca5a5; }
+.rdt-badge-estado--rechazado  { background: #fce7f3; color: #9d174d;  border: 1px solid #f9a8d4; }
+.rdt-badge-estado--completado { background: #d1fae5; color: #065f46;  border: 1px solid #6ee7b7; }
+.rdt-badge-estado--ausente    { background: #f3f4f6; color: #374151;  border: 1px solid #9ca3af; }
+.rdt-badge-estado--expirado   { background: #fef3c7; color: #92400e;  border: 1px solid #fcd34d; }
+
+/* Slots con estados especiales */
+.rdt-slot--ocupado:has(.rdt-badge-estado--pendiente) {
+    background: #fffbeb; border-color: #fbbf24;
+}
+.rdt-slot--ocupado:has(.rdt-badge-estado--completado) {
+    background: #f0fdf4; border-color: #86efac;
+}
+.rdt-slot--ocupado:has(.rdt-badge-estado--completado) > *:not(.rdt-slot__acciones) { opacity: 0.85; }
+
+.rdt-slot--ocupado:has(.rdt-badge-estado--ausente),
+.rdt-slot--ocupado:has(.rdt-badge-estado--rechazado) {
+    background: #f9fafb; border-color: #d1d5db;
+}
+.rdt-slot--ocupado:has(.rdt-badge-estado--ausente)   > *:not(.rdt-slot__acciones),
+.rdt-slot--ocupado:has(.rdt-badge-estado--rechazado) > *:not(.rdt-slot__acciones) { opacity: 0.75; }
+
+/* ── Dropdown de cambio de estado ─────────────────────────── */
+.rdt-estado-dropdown {
+    position: relative;
+    display:  inline-block;
+    width:    100%;
+}
+
+.rdt-estado-dropdown.is-open { z-index: 100001; }
+
+.rdt-estado-dropdown__trigger {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    gap:             8px;
+    width:           100%;
+    box-sizing:      border-box;
+    padding:         7px 12px;
+    border:          1.5px solid var(--rdt-borde);
+    border-radius:   8px;
+    background:      var(--rdt-fondo);
+    color:           var(--rdt-texto);
+    font-size:       0.8rem;
+    font-weight:     600;
+    font-family:     var(--rdt-fuente);
+    cursor:          pointer;
+    transition:      border-color 0.15s ease, background 0.15s ease;
+    text-align:      left;
+}
+
+.rdt-estado-dropdown__trigger:hover:not(:disabled) {
+    border-color: var(--rdt-primario);
+    background:   var(--rdt-fondo-banda, #faf8f6);
+}
+
+.rdt-estado-dropdown__trigger:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.rdt-estado-dropdown__label {
+    flex:          1;
+    text-align:    left;
+    white-space:   nowrap;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+}
+
+.rdt-estado-dropdown__chevron {
+    flex-shrink: 0;
+    font-size:   0.6rem;
+    color:       var(--rdt-subtexto);
+    transition:  transform 0.2s ease;
+}
+
+.rdt-estado-dropdown.is-open .rdt-estado-dropdown__chevron { transform: rotate(180deg); }
+
+.rdt-estado-dropdown__menu {
+    display:       none;
+    opacity:       1 !important;
+    position:      absolute;
+    top:           100%;
+    left:          0;
+    width:         100%;
+    margin-top:    4px;
+    background:    var(--rdt-fondo);
+    border:        1.5px solid var(--rdt-borde);
+    border-radius: 8px;
+    box-shadow:    0 4px 16px rgba(0, 0, 0, 0.14);
+    list-style:    none;
+    margin:        0;
+    padding:       4px 0;
+    min-width:     180px;
+    max-height:    155px;
+    overflow-y:    auto;
+    overflow-x:    hidden;
+    z-index:       100002;
+}
+
+.rdt-estado-dropdown.is-open .rdt-estado-dropdown__menu {
+    display:   block;
+    opacity:   1;
+    animation: rdt-dropdown-in 0.15s ease;
+}
+
+@keyframes rdt-dropdown-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0);   }
+}
+
+.rdt-estado-dropdown__opcion {
+    display:     flex;
+    align-items: center;
+    gap:         10px;
+    padding:     9px 14px;
+    font-size:   0.82rem;
+    font-weight: 500;
+    cursor:      pointer;
+    color:       var(--rdt-texto);
+    transition:  background 0.1s ease;
+    white-space: nowrap;
+}
+
+.rdt-estado-dropdown__opcion:hover    { background: var(--rdt-fondo-banda, #faf8f6); }
+.rdt-estado-dropdown__opcion.is-active {
+    background:  var(--rdt-primario-claro);
+    color:       var(--rdt-primario);
+    font-weight: 700;
+}
+
+.rdt-estado-dropdown__dot {
+    width:         10px;
+    height:        10px;
+    min-width:     10px;
+    border-radius: 50%;
+    display:       inline-block;
+}
+
+.rdt-estado-dropdown__dot--aprobado     { background: #2e7d32; }
+.rdt-estado-dropdown__dot--pendiente  { background: #f59e0b; }
+.rdt-estado-dropdown__dot--cancelado  { background: #c62828; }
+.rdt-estado-dropdown__dot--rechazado  { background: #be185d; }
+.rdt-estado-dropdown__dot--completado { background: #059669; }
+.rdt-estado-dropdown__dot--ausente    { background: #6b7280; }
+
+.rdt-estado-dropdown__feedback {
+    display:     block;
+    font-size:   0.72rem;
+    font-weight: 600;
+    margin-top:  4px;
+    min-height:  14px;
+    transition:  opacity 0.2s ease;
+}
+
+.rdt-estado-dropdown__feedback--exito { color: #2e7d32; }
+.rdt-estado-dropdown__feedback--error { color: #c62828; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .rdt-cal-header  { padding: 14px; }
+    .rdt-cal-titulo  { font-size: 0.88rem; }
+    .rdt-cal-estado  { padding: 8px 14px; flex-wrap: wrap; }
+    .rdt-cal-grilla  { padding: 10px; gap: 6px; }
+    .rdt-slot        { padding: 10px 12px; }
+    .rdt-slot__hora  { width: 44px; font-size: 0.82rem; }
+    .rdt-slot__cliente { font-size: 0.88rem; }
+}
+
+/* ── Diálogo de confirmación de cambio de estado ────────────── */
+.rdt-confirm-overlay {
+    position:        fixed;
+    inset:           0;
+    background:      rgba(13, 20, 26, 0.50);
+    z-index:         10000;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    padding:         16px;
+    box-sizing:      border-box;
+    opacity:         0;
+    transition:      opacity 0.18s ease;
+}
+
+.rdt-confirm-overlay--visible { opacity: 1; }
+
+.rdt-confirm {
+    background:    #ffffff;
+    border-radius: 14px;
+    box-shadow:    0 8px 40px rgba(13, 20, 26, 0.18);
+    width:         100%;
+    max-width:     420px;
+    font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    animation:     rdt-confirm-in 0.18s ease;
+    overflow:      hidden;
+}
+
+@keyframes rdt-confirm-in {
+    from { transform: scale(0.94) translateY(8px); opacity: 0; }
+    to   { transform: scale(1)    translateY(0);   opacity: 1; }
+}
+
+.rdt-confirm__header {
+    display:       flex;
+    align-items:   center;
+    gap:           10px;
+    padding:       18px 20px 14px;
+    border-bottom: 1px solid #e6e0e2;
+}
+
+.rdt-confirm__icono  { font-size: 1.3rem; color: #b38233; line-height: 1; }
+.rdt-confirm__titulo { margin: 0; font-size: 1rem; font-weight: 700; color: #0d141a; }
+
+.rdt-confirm__cuerpo { padding: 18px 20px 4px; }
+
+.rdt-confirm__mensaje {
+    margin:      0 0 10px;
+    font-size:   0.92rem;
+    color:       #0d141a;
+    line-height: 1.55;
+}
+
+.rdt-confirm__estado {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           3px;
+    padding:       1px 8px;
+    border-radius: 999px;
+    font-weight:   700;
+    font-size:     0.82rem;
+    white-space:   nowrap;
+}
+
+.rdt-confirm__estado--anterior { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+.rdt-confirm__estado--nuevo    { background: #d6eaed; color: #2e6b74; border: 1px solid #a8d5db; }
+
+.rdt-confirm__aviso {
+    margin:     0 0 18px;
+    font-size:  0.80rem;
+    color:      #6b6067;
+    font-style: italic;
+}
+
+.rdt-confirm__acciones {
+    display:         flex;
+    justify-content: flex-end;
+    gap:             10px;
+    padding:         14px 20px 18px;
+    border-top:      1px solid #e6e0e2;
+}
+
+.rdt-confirm__btn {
+    padding:       9px 22px;
+    border-radius: 8px;
+    font-size:     0.88rem;
+    font-weight:   600;
+    font-family:   inherit;
+    cursor:        pointer;
+    border:        1.5px solid transparent;
+    transition:    background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    min-width:     88px;
+    text-align:    center;
+}
+
+.rdt-confirm__btn--cancelar {
+    background:   transparent;
+    color:        #6b6067;
+    border-color: #e6e0e2;
+}
+.rdt-confirm__btn--cancelar:hover { background: #f3f4f6; border-color: #d1d5db; color: #0d141a; }
+
+.rdt-confirm__btn--ok { background: #4A7A84; color: #ffffff; border-color: #4A7A84; }
+.rdt-confirm__btn--ok:hover  { background: #3a6470; border-color: #3a6470; }
+.rdt-confirm__btn--ok:focus  { outline: 2px solid #4A7A84; outline-offset: 2px; }
+
+@media (max-width: 480px) {
+    .rdt-confirm            { max-width: 100%; }
+    .rdt-confirm__acciones  { flex-direction: column-reverse; }
+    .rdt-confirm__btn       { width: 100%; text-align: center; }
+}
+
+/* ── Slot atenuado (cancelado / rechazado) ───────────────────── */
+.rdt-slot--atenuado { background-color: #fff5f5; border-left-color: #e53e3e; }
+
+.rdt-slot--atenuado > *:not(.rdt-slot__acciones) { opacity: 0.6; filter: grayscale(0.3); }
+
+.rdt-slot--atenuado .rdt-slot__cliente,
+.rdt-slot--atenuado .rdt-slot__tratamiento {
+    color:           #a0aec0;
+    text-decoration: line-through;
+}
+
+/* ── Teléfono WhatsApp en el modal de reserva interna ──────────── */
+.rdt-modal-telefono-grupo {
+    display: flex;
+    gap:     10px;
+    margin-bottom: 2px;
+}
+
+.rdt-modal-telefono-campo {
+    display:        flex;
+    flex-direction: column;
+    gap:            4px;
+}
+
+.rdt-modal-telefono-campo:first-child { flex: 0 0 96px; }
+.rdt-modal-telefono-campo:last-child  { flex: 1; }
+
+.rdt-modal-telefono-hint {
+    font-size:      0.72rem;
+    font-weight:    600;
+    color:          #6b6067;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.rdt-modal-telefono-hint em {
+    font-style:     normal;
+    font-weight:    400;
+    text-transform: none;
+    color:          #a09499;
+}
+
+.rdt-modal-telefono-input {
+    text-align:     center;
+    font-weight:    600;
+    letter-spacing: 0.04em;
+}
+
+.rdt-modal-telefono-preview {
+    font-size:   0.75rem;
+    font-weight: 500;
+    color:       #4A7A84;
+    min-height:  16px;
+    margin-top:  2px;
+}

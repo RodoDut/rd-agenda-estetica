@@ -1,0 +1,147 @@
+/* ============================================================
+   Panel de Servicios del Centro Estetico
+   Seccion "Mis Servicios" en el escritorio de Mi Cuenta
+   ============================================================ */
+
+/* Contador de servicios */
+.rdt-panel-contador {
+    font-size:   0.8rem;
+    color:       #6b6067;
+    margin:      0 0 12px;
+    text-align:  right;
+}
+
+/* Estados vacío / cargando / error */
+.rdt-panel-vacio,
+.rdt-panel-cargando,
+.rdt-panel-error {
+    font-size:  0.9rem;
+    padding:    16px;
+    text-align: center;
+    color:      #6b6067;
+}
+
+.rdt-panel-error { color: #991b1b; }
+
+/* Tabla de servicios */
+.rdt-servicios-tabla {
+    width:           100%;
+    border-collapse: collapse;
+    font-size:       0.88rem;
+    color:           #0d141a;
+}
+
+.rdt-servicios-tabla thead th {
+    padding:          8px 12px;
+    text-align:       left;
+    font-size:        0.75rem;
+    font-weight:      600;
+    color:            #6b6067;
+    text-transform:   uppercase;
+    letter-spacing:   0.04em;
+    border-bottom:    2px solid #e6e0e2;
+    white-space:      nowrap;
+}
+
+.rdt-servicios-tabla tbody tr {
+    border-bottom: 1px solid #f0ebe3;
+    transition:    background 0.12s ease;
+}
+
+.rdt-servicios-tabla tbody tr:hover {
+    background: #faf8f6;
+}
+
+.rdt-servicios-tabla tbody td {
+    padding:        10px 12px;
+    vertical-align: middle;
+}
+
+/* Detalle del servicio (texto secundario) */
+.rdt-serv-detalle {
+    color:     #6b6067;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    display:   block;
+}
+
+/* Celda de acciones */
+.rdt-serv-acciones {
+    white-space: nowrap;
+}
+
+/* Botones editar / eliminar */
+.rdt-serv-btn {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           4px;
+    padding:       5px 12px;
+    border-radius: 6px;
+    font-size:     0.78rem;
+    font-weight:   600;
+    font-family:   inherit;
+    cursor:        pointer;
+    border:        1.5px solid transparent;
+    transition:    background 0.15s ease, color 0.15s ease;
+    margin-right:  6px;
+}
+
+.rdt-serv-btn--editar {
+    background:   #d6eaed;
+    color:        #2e6b74;
+    border-color: #a8d5db;
+}
+
+.rdt-serv-btn--editar:hover {
+    background: #b8dde3;
+}
+
+.rdt-serv-btn--eliminar {
+    background:   #fee2e2;
+    color:        #991b1b;
+    border-color: #fca5a5;
+}
+
+.rdt-serv-btn--eliminar:hover {
+    background: #fecaca;
+}
+
+/* Error dentro del formulario del modal */
+.rdt-form-error {
+    background:    #fee2e2;
+    color:         #991b1b;
+    padding:       10px 14px;
+    border-radius: 8px;
+    font-size:     0.86rem;
+    font-weight:   500;
+    margin-bottom: 12px;
+}
+
+/* Textarea dentro del modal */
+#rdt-serv-detalle {
+    resize:     vertical;
+    min-height: 72px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .rdt-servicios-tabla thead {
+        display: none;
+    }
+
+    .rdt-servicios-tabla tbody tr {
+        display:       block;
+        padding:       12px 0;
+        border-bottom: 1px solid #e6e0e2;
+    }
+
+    .rdt-servicios-tabla tbody td {
+        display:     block;
+        padding:     4px 0;
+        border:      none;
+    }
+
+    .rdt-serv-acciones {
+        margin-top: 8px;
+    }
+}

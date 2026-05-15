@@ -1,0 +1,26 @@
+# Credenciales y configuración local
+.env
+.env.*
+*.key
+*.pem
+
+# VSCode
+.vscode/sftp.json
+.vscode/sftp.json.bak*
+
+# Dependencias
+/vendor/
+/node_modules/
+
+# Build
+/dist/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Backups
+*.bak
+*.sql
+estado-actual-26-04-26.md
