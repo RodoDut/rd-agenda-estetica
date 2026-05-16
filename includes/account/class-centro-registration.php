@@ -9,7 +9,7 @@ use RDT\CentrosEstetica\Api\RegistroAprobacionController;
 /**
  * CentroRegistration
  *
- * Orquesta el flujo de registro de centros estéticos en WooCommerce.
+ * Orquesta el flujo de registro de centros estéticos usando WooCommerce como base.
  *
  * Responsabilidades de esta clase:
  *  - Registrar los hooks de WooCommerce del flujo de registro
