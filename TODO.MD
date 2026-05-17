@@ -32,10 +32,10 @@ Aquí tienes los pasos que faltan para completar el desarrollo del plugin:
 
 1. **Agregar más funcionalidades**:
    - Añadir la opción de enviar recordatorios automáticos por email o SMS a los clientes antes de su turno programado.
+   - Cambiar el modo en que los clientes de centros estéticos escogen los turnos, en vez de tener un radio button en el que pueda seleccionar 1 sola opción, pueda tener un select list donde pueda optar por varios tratamientos y que el sistema sume los mismos en la reserva de slots de tiempo.
    - Integrar un sistema de calificaciones y comentarios para que los clientes puedan dejar feedback sobre su experiencia con el centro estético después de su turno.
    - Implementar un sistema de gestión de inventario para que los centros puedan llevar un control de los productos y materiales necesarios para cada tratamiento reservado.
    - Implementar más opciones de personalización (como colores, insersión de logo, tamaños de fuente, etc.).
-   - Añadir la opción de que los clientes deban abonar un adelanto para reservar su turno. Por defecto el turno estaría pendiente hasta que el centro de estética reciba el pago y lo apruebe manualmente.
    - Incluir más tipos de gráficos (como gráficos de pastel, barras, etc.).
    
    ****- En la carga de nuevo turno, optimizar la caja de texto del telefono, para que coincida con el formato solicitado por el plugin de WhatsApp, y así facilitar la comunicación entre el centro y el cliente.****
