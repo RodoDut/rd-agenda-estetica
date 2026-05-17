@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: RDT Centros Core
- * Description: Funcionalidades base para centros estéticos (roles, accesos y seguridad).
+ * Description: Funcionalidades base para centros estéticos (agenda,roles, accesos y seguridad).
  * Version: 1.0.0
  * Author: RD Tecno Belleza
  */
