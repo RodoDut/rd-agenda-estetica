@@ -1,0 +1,9 @@
+{
+  "intelephense.environment.includePaths": [
+    "${workspaceFolder}/vendor/php-stubs/wordpress-stubs"
+  ],
+  "intelephense.stubs": [
+    "wordpress"
+  ],
+  "intelephense.files.maxSize": 1000000
+}
