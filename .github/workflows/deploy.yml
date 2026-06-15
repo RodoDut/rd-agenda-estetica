@@ -13,22 +13,35 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Deploy vía SSH (rsync)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 65002
-          script: echo "SSH OK"
+      - name: Configurar SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 65002 -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Sync archivos del plugin
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 65002
-          source: "."
-          target: "~/public_html/wp-content/plugins/rdt-centros-core"
-          strip_components: 0
+      - name: Verificar conexión SSH
+        run: |
+          ssh -p 65002 -i ~/.ssh/id_rsa \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "echo 'Conexión OK'"
+
+      - name: Crear carpeta del plugin si no existe
+        run: |
+          ssh -p 65002 -i ~/.ssh/id_rsa \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "mkdir -p domains/rdtecnobelleza.net/public_html/wp-content/plugins/rdt-centros-core"
+
+      - name: Sync archivos via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.vscode' \
+            --exclude='ESTADO_ACTUAL.md' \
+            --exclude='TODO.MD' \
+            --exclude='*.log' \
+            --exclude='.env' \
+            -e "ssh -p 65002 -i ~/.ssh/id_rsa" \
+            ./ \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:domains/rdtecnobelleza.net/public_html/wp-content/plugins/rdt-centros-core/"
