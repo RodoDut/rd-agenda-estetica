@@ -28,3 +28,6 @@ estado-actual-26-04-26.md
 # Archivos de referencia local (no van a producción)
 rdt-login-features.php
 ssa-json-response.md
+
+# WordPress (no pertenece al plugin)
+wp-content/
