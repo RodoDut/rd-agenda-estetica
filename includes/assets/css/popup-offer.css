@@ -1,0 +1,117 @@
+/* ============================================================
+   Estilos genéricos para modales/popups
+   ============================================================ */
+
+/* ── Modal overlay ──────────────────────────────────────────── */
+.rdt-modal-overlay {
+    display:         none;
+    position:        fixed;
+    inset:           0;
+    background:      rgba(13, 20, 26, 0.45);
+    z-index:         9999;
+    align-items:     center;
+    justify-content: center;
+    padding:         16px;
+    box-sizing:      border-box;
+    opacity:         0;
+    transition:      opacity 0.18s ease;
+}
+
+.rdt-modal-overlay--visible { opacity: 1; display: flex; }
+
+body.rdt-modal-abierto { overflow: hidden; }
+
+/* ── Modal contenedor ───────────────────────────────────────── */
+.rdt-modal {
+    background:    #ffffff;
+    border-radius: var(--rdt-radio, 14px); /* Usamos variable si está definida, sino fallback */
+    box-shadow:    0 8px 40px rgba(13, 20, 26, 0.18);
+    width:         100%;
+    max-width:     480px;
+    max-height:    90vh;
+    overflow-y:    auto;
+    font-family:   var(--rdt-fuente, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    animation:     rdt-modal-in 0.18s ease;
+}
+
+@keyframes rdt-modal-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Modal header ───────────────────────────────────────────── */
+.rdt-modal-header {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         18px 20px;
+    background:      #4A7A84; /* Color primario del plugin */
+    border-radius:   var(--rdt-radio, 14px) var(--rdt-radio, 14px) 0 0;
+}
+
+.rdt-modal-titulo {
+    margin:      0;
+    color:       #ffffff;
+    font-size:   1rem;
+    font-weight: 600;
+}
+
+.rdt-modal-cerrar {
+    background:    transparent;
+    border:        none;
+    color:         rgba(255,255,255,0.8);
+    font-size:     1.1rem;
+    cursor:        pointer;
+    line-height:   1;
+    padding:       4px 6px;
+    border-radius: 4px;
+    transition:    color 0.15s ease, background 0.15s ease;
+}
+
+.rdt-modal-cerrar:hover {
+    color:       #ffffff;
+    background:  rgba(255,255,255,0.15);
+}
+
+/* ── Modal cuerpo ───────────────────────────────────────────── */
+.rdt-modal-cuerpo {
+    padding:        20px;
+    display:        flex;
+    flex-direction: column;
+    gap:            4px;
+}
+
+.rdt-modal-subtitulo {
+    margin:         0 0 12px;
+    font-size:      0.88rem;
+    color:          #6b6067; /* Color de subtexto del plugin */
+    font-style:     italic;
+    text-align:     center;
+    text-transform: capitalize;
+}
+
+/* ── Modal botones de acción ────────────────────────────────── */
+.rdt-modal-acciones {
+    display:         flex;
+    justify-content: center;
+    gap:             12px;
+    margin-top:      20px;
+}
+
+.rdt-modal-btn--cancelar { background: #e6e0e2; color: #0d141a; } /* Color de borde/fondo claro */
+.rdt-modal-btn--cancelar:hover:not(:disabled) { background: #d1d5db; color: #0d141a; }
+
+/* ── Modal mensajes de feedback ─────────────────────────────── */
+.rdt-modal-msg {
+    font-size:     0.86rem;
+    font-weight:   500;
+    text-align:    center;
+    padding:       8px 12px;
+    border-radius: 8px;
+    margin-top:    6px;
+    min-height:    0;
+}
+
+.rdt-modal-msg:empty    { display: none; }
+.rdt-modal-msg--error   { background: #fee2e2; color: #991b1b; } /* Colores de error del plugin */
+.rdt-modal-msg--exito   { background: #d6eaed; color: #2e6b74; } /* Colores de éxito del plugin */

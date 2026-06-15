@@ -1,0 +1,349 @@
+/* ============================================================
+   Admin: Formulario de creación de jornada
+   Shortcode [admin_crear_jornada]
+   ============================================================ */
+
+.rdt-admin-jornada {
+    font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width:     560px;
+    background:    #ffffff;
+    border:        1px solid #e6e0e2;
+    border-radius: 14px;
+    box-shadow:    0 4px 20px rgba(74, 122, 132, 0.10);
+    overflow:      hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.rdt-admin-jornada__header {
+    background:  #4A7A84;
+    padding:     22px 28px;
+}
+
+.rdt-admin-jornada__titulo {
+    margin:      0 0 6px;
+    color:       #ffffff;
+    font-size:   1.1rem;
+    font-weight: 700;
+}
+
+.rdt-admin-jornada__subtitulo {
+    margin:      0;
+    color:       rgba(255, 255, 255, 0.82);
+    font-size:   0.85rem;
+    line-height: 1.5;
+}
+
+/* ── Formulario ─────────────────────────────────────────────── */
+.rdt-admin-jornada__form {
+    padding: 24px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.rdt-admin-campo {
+    display:        flex;
+    flex-direction: column;
+    gap:            6px;
+}
+
+.rdt-admin-label {
+    font-size:      0.78rem;
+    font-weight:    700;
+    color:          #6b6067;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rdt-admin-select,
+.rdt-admin-input {
+    display:       block;
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid #e6e0e2;
+    border-radius: 10px;
+    background:    #faf8f6;
+    color:         #0d141a;
+    font-size:     0.95rem;
+    font-family:   inherit;
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rdt-admin-select {
+    appearance:          none;
+    -webkit-appearance:  none;
+    background-image:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A7A84' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:   no-repeat;
+    background-position: right 14px center;
+    padding-right:       38px;
+    cursor:              pointer;
+}
+
+.rdt-admin-select:focus,
+.rdt-admin-input:focus {
+    outline:      none;
+    border-color: #4A7A84;
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.14);
+}
+
+/* ── Horarios: dos columnas ─────────────────────────────────── */
+.rdt-admin-horarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* ── Mensajes de feedback ───────────────────────────────────── */
+.rdt-admin-msg {
+    font-size:     0.86rem;
+    font-weight:   500;
+    min-height:    18px;
+    padding:       0;
+    margin:        0;
+    line-height:   1.4;
+}
+
+.rdt-admin-msg--error       { color: #991b1b; }
+.rdt-admin-msg--advertencia { color: #92400e; }
+
+/* ── Botón principal ────────────────────────────────────────── */
+.rdt-admin-btn {
+    display:        block;
+    width:          100%;
+    box-sizing:     border-box;
+    padding:        12px 20px;
+    border:         none;
+    border-radius:  10px;
+    background:     #4A7A84;
+    color:          #ffffff;
+    font-size:      0.95rem;
+    font-weight:    700;
+    font-family:    inherit;
+    cursor:         pointer;
+    letter-spacing: 0.02em;
+    transition:     background 0.18s ease, transform 0.1s ease;
+}
+
+.rdt-admin-btn:hover:not(:disabled) { background: #3a6470; transform: translateY(-1px); }
+.rdt-admin-btn:disabled             { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* ── Resultado ──────────────────────────────────────────────── */
+.rdt-admin-resultado {
+    border-top: 1px solid #e6e0e2;
+    padding:    24px 28px 28px;
+    background: #f8fffe;
+}
+
+.rdt-admin-resultado__card {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    text-align:     center;
+    gap:            10px;
+}
+
+.rdt-admin-resultado__icono {
+    width:           48px;
+    height:          48px;
+    border-radius:   50%;
+    background:      #d1fae5;
+    color:           #065f46;
+    font-size:       1.5rem;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    font-weight:     700;
+}
+
+.rdt-admin-resultado__titulo {
+    margin:      0;
+    font-size:   1rem;
+    font-weight: 700;
+    color:       #0d141a;
+}
+
+.rdt-admin-resultado__detalle {
+    margin:      0;
+    font-size:   0.9rem;
+    color:       #3a3540;
+    line-height: 1.6;
+}
+
+.rdt-admin-resultado__nota {
+    margin:    0;
+    font-size: 0.82rem;
+    color:     #6b6067;
+}
+
+.rdt-admin-resultado__url {
+    display:       block;
+    font-size:     0.78rem;
+    color:         #4A7A84;
+    word-break:    break-all;
+    background:    #f0f8f9;
+    border:        1px solid #c8e6ea;
+    border-radius: 8px;
+    padding:       8px 12px;
+    text-decoration: none;
+    width:         100%;
+    box-sizing:    border-box;
+}
+
+.rdt-admin-resultado__url:hover { text-decoration: underline; }
+
+.rdt-admin-btn--secundario {
+    background:   transparent;
+    color:        #4A7A84;
+    border:       1.5px solid #4A7A84;
+    margin-top:   6px;
+}
+
+.rdt-admin-btn--secundario:hover:not(:disabled) {
+    background: #4A7A84;
+    color:      #ffffff;
+    transform:  translateY(-1px);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .rdt-admin-jornada__header,
+    .rdt-admin-jornada__form,
+    .rdt-admin-resultado {
+        padding-left:  16px;
+        padding-right: 16px;
+    }
+
+    .rdt-admin-horarios {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Aviso en el Paso 2 (mientras se usa el formulario SSA) ────── */
+.rdt-admin-jornada__aviso {
+    display:     flex;
+    align-items: flex-start;
+    gap:         10px;
+    padding:     14px 28px;
+    background:  #fffbeb;
+    border-top:  1px solid #fde68a;
+    font-size:   0.84rem;
+    color:       #92400e;
+    line-height: 1.5;
+}
+
+.rdt-admin-jornada__aviso-icono { flex-shrink: 0; font-size: 1rem; }
+
+.rdt-admin-jornada__volver {
+    display:     block;
+    margin-top:  6px;
+    color:       #4A7A84;
+    font-weight: 600;
+    text-decoration: none;
+    font-size:   0.82rem;
+}
+
+.rdt-admin-jornada__volver:hover { text-decoration: underline; }
+
+.rdt-admin-jornada__ssa-wrap {
+    padding: 24px 28px;
+}
+
+/* ── Card de feedback para el admin (inyectado por ssa-prefill.js) ── */
+.rdt-admin-feedback {
+    border-top: 1px solid #e6e0e2;
+    padding:    28px;
+    background: #f8fffe;
+}
+
+.rdt-admin-feedback__card {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    text-align:     center;
+    gap:            12px;
+}
+
+.rdt-admin-feedback__icono {
+    width:           52px;
+    height:          52px;
+    border-radius:   50%;
+    background:      #d1fae5;
+    color:           #065f46;
+    font-size:       1.6rem;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    font-weight:     700;
+}
+
+.rdt-admin-feedback__titulo {
+    margin:      0;
+    font-size:   1.05rem;
+    font-weight: 700;
+    color:       #0d141a;
+}
+
+.rdt-admin-feedback__detalle {
+    margin:      0;
+    font-size:   0.9rem;
+    color:       #3a3540;
+    line-height: 1.6;
+}
+
+.rdt-admin-feedback__nota {
+    margin:    0;
+    font-size: 0.82rem;
+    color:     #6b6067;
+}
+
+.rdt-admin-feedback__url-wrap {
+    display:   flex;
+    flex-direction: column;
+    gap:       8px;
+    width:     100%;
+}
+
+.rdt-admin-feedback__url {
+    display:       block;
+    font-size:     0.78rem;
+    color:         #4A7A84;
+    word-break:    break-all;
+    background:    #f0f8f9;
+    border:        1px solid #c8e6ea;
+    border-radius: 8px;
+    padding:       10px 14px;
+    text-decoration: none;
+    width:         100%;
+    box-sizing:    border-box;
+    text-align:    left;
+}
+
+.rdt-admin-feedback__url:hover { text-decoration: underline; }
+
+.rdt-admin-feedback__copiar {
+    padding:       9px 18px;
+    border-radius: 8px;
+    border:        1.5px solid #4A7A84;
+    background:    transparent;
+    color:         #4A7A84;
+    font-size:     0.85rem;
+    font-weight:   600;
+    font-family:   inherit;
+    cursor:        pointer;
+    transition:    background 0.15s ease, color 0.15s ease;
+}
+
+.rdt-admin-feedback__copiar:hover {
+    background: #4A7A84;
+    color:      #ffffff;
+}
+
+@media (max-width: 480px) {
+    .rdt-admin-jornada__aviso,
+    .rdt-admin-jornada__ssa-wrap,
+    .rdt-admin-feedback {
+        padding-left:  16px;
+        padding-right: 16px;
+    }
+}

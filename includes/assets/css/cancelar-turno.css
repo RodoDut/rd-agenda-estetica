@@ -1,0 +1,165 @@
+/* ============================================================
+   Cancelar Turno — rdt-centros-core
+   Pantalla de confirmación de cancelación para la clienta final.
+   Paleta coherente con agenda-publica.css y calendario-centro.css
+   ============================================================ */
+
+/* ── Variables (misma paleta que el resto del plugin) ───────── */
+#rdt-cancelar-turno {
+    --rdt-primario:         #4A7A84;
+    --rdt-primario-hover:   #3a6470;
+
+    --rdt-danger:           #c0392b;
+    --rdt-danger-hover:     #a93226;
+    --rdt-danger-claro:     #fdecea;
+    --rdt-danger-borde:     #e8a09a;
+
+    --rdt-exito-bg:         #d6eaed;
+    --rdt-exito-texto:      #2e6b74;
+    --rdt-error-bg:         #fee2e2;
+    --rdt-error-texto:      #991b1b;
+
+    --rdt-texto:            #0d141a;
+    --rdt-subtexto:         #6b6067;
+    --rdt-borde:            #e6e0e2;
+    --rdt-fondo:            #ffffff;
+    --rdt-fondo-banda:      #faf8f6;
+
+    --rdt-radio:            14px;
+    --rdt-radio-inner:      10px;
+    --rdt-sombra:           0 4px 20px rgba(74, 122, 132, 0.10);
+    --rdt-fuente:           -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── Contenedor principal ───────────────────────────────────── */
+#rdt-cancelar-turno {
+    font-family:   var(--rdt-fuente);
+    color:         var(--rdt-texto);
+    background:    var(--rdt-fondo);
+    border-radius: var(--rdt-radio);
+    box-shadow:    var(--rdt-sombra);
+    border:        1px solid var(--rdt-borde);
+    max-width:     480px;
+    margin:        0 auto;
+    overflow:      hidden;
+    box-sizing:    border-box;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.rdt-ct-header {
+    padding:    20px 24px;
+    background: var(--rdt-primario);
+}
+
+.rdt-ct-titulo {
+    margin:         0;
+    color:          #ffffff;
+    font-size:      1.05rem;
+    font-weight:    600;
+    text-align:     center;
+    letter-spacing: 0.01em;
+}
+
+/* ── Cuerpo ─────────────────────────────────────────────────── */
+.rdt-ct-cuerpo {
+    padding:        28px 24px 24px;
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            12px;
+    text-align:     center;
+}
+
+/* ── Textos descriptivos ────────────────────────────────────── */
+.rdt-ct-pregunta {
+    margin:      0;
+    font-size:   1rem;
+    font-weight: 600;
+    color:       var(--rdt-texto);
+}
+
+.rdt-ct-advertencia {
+    margin:      0;
+    font-size:   0.84rem;
+    color:       var(--rdt-subtexto);
+    font-style:  italic;
+}
+
+/* ── Botón de cancelación ───────────────────────────────────── */
+.rdt-ct-btn {
+    display:         block;
+    width:           100%;
+    box-sizing:      border-box;
+    padding:         12px 20px;
+    margin-top:      8px;
+    border:          none;
+    border-radius:   var(--rdt-radio-inner);
+    background:      var(--rdt-danger);
+    color:           #ffffff;
+    font-size:       0.95rem;
+    font-weight:     600;
+    font-family:     var(--rdt-fuente);
+    cursor:          pointer;
+    letter-spacing:  0.02em;
+    transition:      background 0.2s ease, transform 0.1s ease;
+}
+
+.rdt-ct-btn:hover {
+    background: var(--rdt-danger-hover);
+    transform:  translateY(-1px);
+}
+
+.rdt-ct-btn:active {
+    transform: translateY(0);
+}
+
+/* Estado deshabilitado: cuando el turno ya fue cancelado */
+.rdt-ct-btn:disabled {
+    opacity:   0.5;
+    cursor:    not-allowed;
+    transform: none;
+}
+
+/* ── Mensaje de feedback ────────────────────────────────────── */
+.rdt-ct-msg {
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border-radius: var(--rdt-radio-inner);
+    font-size:     0.88rem;
+    font-weight:   500;
+    text-align:    center;
+    transition:    all 0.2s ease;
+}
+
+.rdt-ct-msg:empty {
+    display: none;
+}
+
+/* Éxito por defecto — el JS puede agregar .rdt-ct-msg--error para errores */
+.rdt-ct-msg {
+    background: var(--rdt-exito-bg);
+    color:      var(--rdt-exito-texto);
+}
+
+.rdt-ct-msg--error {
+    background: var(--rdt-error-bg);
+    color:      var(--rdt-error-texto);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    .rdt-ct-header {
+        padding: 16px 16px;
+    }
+
+    .rdt-ct-titulo {
+        font-size: 0.95rem;
+    }
+
+    .rdt-ct-cuerpo {
+        padding: 20px 16px 20px;
+        gap:     10px;
+    }
+}

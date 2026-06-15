@@ -1,0 +1,1196 @@
+/* ============================================================
+   Mi Cuenta — Centro Estético
+   Estilos para la página Mi Cuenta de WooCommerce,
+   aplicados exclusivamente a usuarios con rol centro_estetico.
+   Paleta coherente con el resto del plugin.
+   ============================================================ */
+
+/* ── Variables ─────────────────────────────────────────────── */
+body.rdt-centro-logueado {
+    --rdt-primario:       #4A7A84;
+    --rdt-primario-hover: #3a6470;
+    --rdt-primario-claro: #d6eaed;
+    --rdt-acento:         #b38233;
+    --rdt-acento-claro:   #ecc77c;
+
+    --rdt-texto:          #0d141a;
+    --rdt-subtexto:       #6b6067;
+    --rdt-borde:          #e6e0e2;
+    --rdt-fondo:          #ffffff;
+    --rdt-fondo-suave:    #faf8f6;
+
+    --rdt-radio:          12px;
+    --rdt-sombra:         0 4px 20px rgba(74, 122, 132, 0.10);
+    --rdt-fuente:         -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── Layout general de Mi Cuenta ────────────────────────────── */
+body.rdt-centro-logueado .woocommerce-MyAccount-content,
+body.rdt-centro-logueado .woocommerce-account .woocommerce {
+    font-family: var(--rdt-fuente);
+    color:       var(--rdt-texto);
+}
+
+/*
+ * Reemplazamos el sistema de float de woocommerce-layout.css por flexbox.
+ * Este bloque se carga despues de woocommerce-layout gracias a la
+ * declaracion de dependencia en AssetsLoader::load_woo_account().
+ *
+ * woocommerce-layout.css aplica:
+ *   .woocommerce-account .woocommerce { float-based columns }
+ *   .woocommerce-MyAccount-navigation { float:left; width:30% }
+ *   .woocommerce-MyAccount-content    { float:right; width:68% }
+ *
+ * Los !important son necesarios para ganar contra esas reglas.
+ */
+body.rdt-centro-logueado .woocommerce-account .woocommerce {
+    display:     flex !important;
+    flex-wrap:   wrap !important;
+    gap:         24px !important;
+    align-items: flex-start !important;
+}
+
+body.rdt-centro-logueado .woocommerce-account .woocommerce::before,
+body.rdt-centro-logueado .woocommerce-account .woocommerce::after {
+    display: none !important;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation {
+    float:     none !important;
+    width:     220px !important;
+    flex:      0 0 220px !important;
+    min-width: 0 !important;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-content {
+    float:     none !important;
+    width:     auto !important;
+    flex:      1 1 300px !important;
+    min-width: 0 !important;
+}
+
+/* En movil: ambas columnas ocupan el ancho completo */
+@media (max-width: 768px) {
+    body.rdt-centro-logueado .woocommerce-MyAccount-navigation {
+        flex:  0 0 100% !important;
+        width: 100% !important;
+    }
+
+    body.rdt-centro-logueado .woocommerce-MyAccount-content {
+        flex: 0 0 100% !important;
+    }
+}
+
+/* ── Navegación lateral ─────────────────────────────────────── */
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation {
+    background:    var(--rdt-fondo);
+    border-radius: var(--rdt-radio);
+    border:        1px solid var(--rdt-borde);
+    box-shadow:    var(--rdt-sombra);
+    overflow:      hidden;
+    padding:       0;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul {
+    list-style: none;
+    margin:     0;
+    padding:    0;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul li {
+    border-bottom: 1px solid var(--rdt-borde);
+    margin:        0;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul li:last-child {
+    border-bottom: none;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul li a {
+    display:         block;
+    padding:         12px 20px;
+    color:           var(--rdt-texto);
+    font-size:       0.9rem;
+    font-weight:     500;
+    text-decoration: none;
+    transition:      background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul li a:hover {
+    background:   var(--rdt-fondo-suave);
+    color:        var(--rdt-primario);
+    padding-left: 26px;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul li.is-active a {
+    background:  var(--rdt-primario);
+    color:       #ffffff;
+    font-weight: 600;
+}
+
+body.rdt-centro-logueado .woocommerce-MyAccount-navigation ul li.is-active a:hover {
+    background:   var(--rdt-primario-hover);
+    padding-left: 20px;
+}
+
+/* ── Área de contenido ──────────────────────────────────────── */
+body.rdt-centro-logueado .woocommerce-MyAccount-content {
+    background:    var(--rdt-fondo);
+    border-radius: var(--rdt-radio);
+    border:        1px solid var(--rdt-borde);
+    box-shadow:    var(--rdt-sombra);
+    padding:       28px 32px;
+}
+
+/* ── Escritorio personalizado ───────────────────────────────── */
+.rdt-account-bienvenida {
+    text-align:  center;
+    padding:     20px 0 10px;
+    overflow:    hidden;
+    box-sizing:  border-box;
+    width:       100%;
+}
+
+.rdt-account-titulo {
+    font-size:   1.4rem;
+    font-weight: 700;
+    color:       var(--rdt-texto);
+    margin:      0 0 10px;
+}
+
+.rdt-account-subtitulo {
+    font-size: 0.95rem;
+    color:     var(--rdt-subtexto);
+    margin:    0 0 24px;
+}
+
+.rdt-account-btn {
+    display:         inline-block;
+    padding:         12px 28px;
+    background:      var(--rdt-primario);
+    color:           #ffffff;
+    border-radius:   var(--rdt-radio);
+    font-size:       0.95rem;
+    font-weight:     600;
+    text-decoration: none;
+    transition:      background 0.2s ease, transform 0.1s ease;
+    box-sizing:      border-box;
+    max-width:       100%;
+}
+
+.rdt-account-btn:hover {
+    background: var(--rdt-primario-hover);
+    color:      #ffffff;
+    transform:  translateY(-1px);
+}
+
+/* ── Formulario de detalles de la cuenta ────────────────────── */
+body.rdt-centro-logueado .woocommerce-EditAccountForm fieldset {
+    border:        1px solid var(--rdt-borde);
+    border-radius: var(--rdt-radio);
+    padding:       20px 24px;
+    margin-top:    20px;
+}
+
+body.rdt-centro-logueado .woocommerce-EditAccountForm fieldset legend {
+    font-size:   0.82rem;
+    font-weight: 600;
+    color:       var(--rdt-subtexto);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding:     0 8px;
+}
+
+body.rdt-centro-logueado .woocommerce-EditAccountForm .form-row label,
+body.rdt-centro-logueado .woocommerce-form-row label {
+    font-size:      0.82rem;
+    font-weight:    600;
+    color:          var(--rdt-subtexto);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom:  4px;
+    display:        block;
+}
+
+body.rdt-centro-logueado .woocommerce-EditAccountForm .form-row input,
+body.rdt-centro-logueado .woocommerce-form-row input[type="text"],
+body.rdt-centro-logueado .woocommerce-form-row input[type="email"],
+body.rdt-centro-logueado .woocommerce-form-row input[type="password"],
+body.rdt-centro-logueado .woocommerce-form-row input[type="tel"] {
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid var(--rdt-borde);
+    border-radius: 10px;
+    background:    var(--rdt-fondo-suave);
+    color:         var(--rdt-texto);
+    font-size:     0.92rem;
+    font-family:   var(--rdt-fuente);
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+body.rdt-centro-logueado .woocommerce-EditAccountForm .form-row input:focus,
+body.rdt-centro-logueado .woocommerce-form-row input:focus {
+    outline:      none;
+    border-color: var(--rdt-primario);
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.12);
+}
+
+/* ── Botones de acción ──────────────────────────────────────── */
+body.rdt-centro-logueado .woocommerce-Button,
+body.rdt-centro-logueado button[type="submit"],
+body.rdt-centro-logueado input[type="submit"] {
+    background:      var(--rdt-primario) !important;
+    color:           #ffffff !important;
+    border:          none !important;
+    border-radius:   var(--rdt-radio) !important;
+    padding:         11px 24px !important;
+    font-size:       0.92rem !important;
+    font-weight:     600 !important;
+    font-family:     var(--rdt-fuente) !important;
+    cursor:          pointer !important;
+    transition:      background 0.2s ease, transform 0.1s ease !important;
+    text-decoration: none !important;
+}
+
+body.rdt-centro-logueado .woocommerce-Button:hover,
+body.rdt-centro-logueado button[type="submit"]:hover,
+body.rdt-centro-logueado input[type="submit"]:hover {
+    background: var(--rdt-primario-hover) !important;
+    transform:  translateY(-1px) !important;
+}
+
+/* ── Formulario de login de WooCommerce ─────────────────────── */
+body.rdt-centro-logueado .woocommerce-form-login,
+body.rdt-centro-logueado .woocommerce-form-register {
+    background:    var(--rdt-fondo);
+    border:        1px solid var(--rdt-borde);
+    border-radius: var(--rdt-radio);
+    box-shadow:    var(--rdt-sombra);
+    padding:       28px 32px;
+}
+
+/* ── Perfil del centro ─────────────────────────────────────── */
+.rdt-perfil-card {
+    margin-top:    28px;
+    background:    var(--rdt-fondo-suave);
+    border:        1px solid var(--rdt-borde);
+    border-radius: var(--rdt-radio);
+    overflow:      hidden;
+}
+
+.rdt-perfil-header {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         16px 20px;
+    background:      var(--rdt-primario-claro);
+    border-bottom:   1px solid var(--rdt-borde);
+}
+
+.rdt-perfil-titulo {
+    margin:      0;
+    font-size:   0.92rem;
+    font-weight: 700;
+    color:       var(--rdt-primario);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rdt-perfil-btn-editar {
+    background:      transparent;
+    border:          1.5px solid var(--rdt-primario);
+    color:           var(--rdt-primario);
+    border-radius:   8px;
+    padding:         6px 14px;
+    font-size:       0.82rem;
+    font-weight:     600;
+    font-family:     var(--rdt-fuente);
+    cursor:          pointer;
+    transition:      background 0.15s ease, color 0.15s ease;
+}
+
+.rdt-perfil-btn-editar:hover {
+    background: var(--rdt-primario);
+    color:      #ffffff;
+}
+
+/* ── Vista de solo lectura ──────────────────────────────────── */
+.rdt-perfil-vista {
+    padding: 20px;
+}
+
+.rdt-perfil-lista {
+    margin:  0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap:     12px 24px;
+}
+
+.rdt-perfil-fila {
+    display:        flex;
+    flex-direction: column;
+    gap:            2px;
+}
+
+.rdt-perfil-campo {
+    font-size:      0.75rem;
+    font-weight:    600;
+    color:          var(--rdt-subtexto);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.rdt-perfil-valor {
+    font-size:   0.92rem;
+    font-weight: 500;
+    color:       var(--rdt-texto);
+    margin:      0;
+    word-break:  break-word;
+}
+
+.rdt-perfil-sin-datos {
+    padding:    20px;
+    color:      var(--rdt-subtexto);
+    font-style: italic;
+    font-size:  0.9rem;
+    margin:     0;
+}
+
+/* ── Formulario de edición inline ───────────────────────────── */
+.rdt-perfil-form {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap:     4px 24px;
+}
+
+.rdt-perfil-form-acciones {
+    grid-column:  1 / -1;
+    display:      flex;
+    gap:          12px;
+    margin-top:   16px;
+    flex-wrap:    wrap;
+}
+
+.rdt-perfil-btn-guardar {
+    padding:       10px 24px;
+    background:    var(--rdt-primario);
+    color:         #ffffff;
+    border:        none;
+    border-radius: 8px;
+    font-size:     0.9rem;
+    font-weight:   600;
+    font-family:   var(--rdt-fuente);
+    cursor:        pointer;
+    transition:    background 0.2s ease, transform 0.1s ease;
+}
+
+.rdt-perfil-btn-guardar:hover:not(:disabled) {
+    background: var(--rdt-primario-hover);
+    transform:  translateY(-1px);
+}
+
+.rdt-perfil-btn-guardar:disabled {
+    opacity: 0.6;
+    cursor:  not-allowed;
+}
+
+.rdt-perfil-btn-cancelar {
+    padding:       10px 20px;
+    background:    transparent;
+    color:         var(--rdt-subtexto);
+    border:        1.5px solid var(--rdt-borde);
+    border-radius: 8px;
+    font-size:     0.9rem;
+    font-weight:   600;
+    font-family:   var(--rdt-fuente);
+    cursor:        pointer;
+    transition:    border-color 0.15s ease, color 0.15s ease;
+}
+
+.rdt-perfil-btn-cancelar:hover {
+    border-color: var(--rdt-subtexto);
+    color:        var(--rdt-texto);
+}
+
+/* ── Mensajes de feedback del perfil ────────────────────────── */
+.rdt-perfil-msg {
+    grid-column:   1 / -1;
+    padding:       8px 14px;
+    border-radius: 8px;
+    font-size:     0.86rem;
+    font-weight:   500;
+    margin-top:    8px;
+}
+
+.rdt-perfil-msg:empty {
+    display: none;
+}
+
+.rdt-perfil-msg--error {
+    background: #fee2e2;
+    color:      #991b1b;
+}
+
+.rdt-perfil-msg--exito {
+    background: var(--rdt-primario-claro);
+    color:      var(--rdt-primario);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 520px) {
+
+    .rdt-perfil-lista,
+    .rdt-perfil-form {
+        grid-template-columns: 1fr;
+    }
+
+    .rdt-perfil-form-acciones {
+        flex-direction: column;
+    }
+
+    .rdt-perfil-btn-guardar,
+    .rdt-perfil-btn-cancelar {
+        width:      100%;
+        text-align: center;
+    }
+}
+
+/* ── Sección de registro del centro estético ────────────────── */
+.rdt-registro-centro {
+    margin-top:    24px;
+    padding-top:   20px;
+    border-top:    2px solid var(--rdt-acento-claro);
+}
+
+.rdt-registro-titulo {
+    font-size:   0.95rem;
+    font-weight: 700;
+    color:       var(--rdt-primario);
+    margin:      0 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rdt-form-row {
+    margin-bottom: 14px;
+}
+
+.rdt-form-row label {
+    display:        block;
+    font-size:      0.8rem;
+    font-weight:    600;
+    color:          var(--rdt-subtexto);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom:  4px;
+}
+
+.rdt-form-row label .required {
+    color: #c0392b;
+}
+
+.rdt-form-row .rdt-input {
+    display:       block;
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid var(--rdt-borde);
+    border-radius: 10px;
+    background:    var(--rdt-fondo-suave);
+    color:         var(--rdt-texto);
+    font-size:     0.92rem;
+    font-family:   var(--rdt-fuente);
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rdt-form-row .rdt-input:focus {
+    outline:      none;
+    border-color: var(--rdt-primario);
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.12);
+}
+
+.rdt-form-row .rdt-input::placeholder {
+    color: #a09499;
+}
+
+/* ── Checkbox de aprobación de turnos (popup de registro + edit-account) ── */
+.rdt-label-aprobacion {
+    display:     flex;
+    align-items: flex-start;
+    gap:         10px;
+    cursor:      pointer;
+    line-height: 1.5;
+}
+
+.rdt-checkbox-aprobacion {
+    width:        18px;
+    height:       18px;
+    min-width:    18px;
+    margin-top:   3px;
+    accent-color: var(--rdt-primario);
+    cursor:       pointer;
+    flex-shrink:  0;
+}
+
+.rdt-label-aprobacion__texto {
+    font-size:   0.9rem;
+    font-weight: 600;
+    color:       var(--rdt-texto);
+}
+
+/* ============================================================
+   Responsive mobile — mejoras generales Mi Cuenta
+   Aplicadas a partir de 480px (smartphones típicos)
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    /* —— Layout general ———————————————————————————————— */
+
+    /* Área de contenido: menos padding para no desperdiciar espacio */
+    body.rdt-centro-logueado .woocommerce-MyAccount-content {
+        padding:       14px 12px;
+        border-radius: 8px;
+    }
+
+    /* Navegación lateral: radio más pequeño en móvil */
+    body.rdt-centro-logueado .woocommerce-MyAccount-navigation {
+        border-radius: 8px;
+    }
+
+    /* Texto nativo de WooCommerce (párrafo de bienvenida con links) */
+    body.rdt-centro-logueado .woocommerce-MyAccount-content > p {
+        font-size:   0.88rem;
+        line-height: 1.55;
+        word-break:  break-word;
+        overflow-wrap: break-word;
+        margin-bottom: 16px;
+    }
+
+    /* Links dentro del párrafo de bienvenida */
+    body.rdt-centro-logueado .woocommerce-MyAccount-content > p a {
+        word-break: break-word;
+    }
+
+    /* Mensajes de error y éxito de WooCommerce */
+    body.rdt-centro-logueado .woocommerce-error,
+    body.rdt-centro-logueado .woocommerce-message,
+    body.rdt-centro-logueado .woocommerce-info {
+        font-size:     0.84rem;
+        padding:       10px 12px;
+        border-radius: 8px;
+        word-break:    break-word;
+    }
+
+    /* —— Escritorio ————————————————————————————————— */
+
+    .rdt-account-bienvenida {
+        padding: 12px 0 8px;
+    }
+
+    .rdt-account-titulo {
+        font-size: 1.15rem;
+    }
+
+    .rdt-account-subtitulo {
+        font-size:     0.88rem;
+        margin-bottom: 18px;
+    }
+
+    .rdt-account-btn {
+        display:    block;
+        width:      100%;
+        max-width:  100%;
+        text-align: center;
+        padding:    13px 20px;
+        box-sizing: border-box;
+    }
+
+    /* Perfil card */
+    .rdt-perfil-card {
+        margin-top:    20px;
+        border-radius: 8px;
+    }
+
+    .rdt-perfil-header {
+        flex-wrap:    wrap;
+        gap:          10px;
+        padding:      12px 14px;
+    }
+
+    .rdt-perfil-titulo {
+        font-size: 0.82rem;
+    }
+
+    .rdt-perfil-btn-editar {
+        width:      100%;
+        text-align: center;
+        padding:    8px 14px;
+    }
+
+    .rdt-perfil-vista {
+        padding: 14px;
+    }
+
+    .rdt-perfil-lista {
+        grid-template-columns: 1fr;
+        gap:                   10px;
+    }
+
+    .rdt-perfil-campo {
+        font-size: 0.72rem;
+    }
+
+    .rdt-perfil-valor {
+        font-size: 0.9rem;
+    }
+
+    /* —— Formulario de edición ——————————————————————————— */
+
+    .rdt-edicion-seccion {
+        margin-bottom:  22px;
+        padding-bottom: 20px;
+    }
+
+    .rdt-edicion-titulo {
+        font-size: 0.82rem;
+    }
+
+    .rdt-edicion-grid {
+        grid-template-columns: 1fr;
+        gap:                   12px;
+        margin-top:            12px;
+    }
+
+    /* Todos los campos ocupan el ancho completo en móvil */
+    .rdt-edicion-campo,
+    .rdt-edicion-campo--full {
+        grid-column: 1 / -1;
+    }
+
+    .rdt-edicion-campo label {
+        font-size: 0.74rem;
+    }
+
+    .rdt-edicion-campo .rdt-input {
+        padding:   11px 12px;
+        font-size: 0.9rem;
+        /* Evita zoom automático en iOS al hacer focus */
+        font-size: max(16px, 0.9rem);
+    }
+
+    .rdt-edicion-acciones {
+        margin-top: 20px;
+    }
+
+    .rdt-edicion-btn-guardar {
+        display:    block;
+        width:      100%;
+        text-align: center;
+        padding:    14px;
+        font-size:  0.95rem;
+    }
+
+    /* —— Formulario de login / registro ————————————————————— */
+
+    body.rdt-centro-logueado .woocommerce-form-login,
+    body.rdt-centro-logueado .woocommerce-form-register {
+        padding:       16px 12px;
+        border-radius: 8px;
+    }
+
+    /* Inputs nativos de WooCommerce en login */
+    body.rdt-centro-logueado .woocommerce-form-login .woocommerce-Input,
+    body.rdt-centro-logueado .woocommerce-form-register .woocommerce-Input {
+        /* Evita zoom en iOS */
+        font-size: max(16px, 0.92rem);
+    }
+
+    /* Botón de registro en login */
+    .rdt-btn-registro-link {
+        padding:   12px 18px;
+        font-size: 0.88rem;
+    }
+}
+
+/* ── Mensajes de error y éxito ──────────────────────────────── */
+body.rdt-centro-logueado .woocommerce-error,
+body.rdt-centro-logueado .woocommerce-message,
+body.rdt-centro-logueado .woocommerce-info {
+    border-radius: var(--rdt-radio);
+    border-left:   4px solid var(--rdt-primario);
+    background:    var(--rdt-primario-claro);
+    color:         var(--rdt-texto);
+    font-size:     0.9rem;
+    padding:       12px 16px;
+    margin-bottom: 16px;
+}
+
+body.rdt-centro-logueado .woocommerce-error {
+    border-left-color: #c0392b;
+    background:        #fee2e2;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+
+    body.rdt-centro-logueado .woocommerce-MyAccount-content {
+        padding: 18px 16px;
+    }
+
+    body.rdt-centro-logueado .woocommerce-form-login,
+    body.rdt-centro-logueado .woocommerce-form-register {
+        padding: 20px 16px;
+    }
+
+    .rdt-account-titulo {
+        font-size: 1.2rem;
+    }
+
+    .rdt-account-btn {
+        display: block;
+        width:   100%;
+        text-align: center;
+    }
+}
+
+/* -- Formulario de edición unificado ----------------------------------- */
+.rdt-edicion-form {
+    font-family: var(--rdt-fuente);
+}
+
+.rdt-edicion-seccion {
+    margin-bottom: 32px;
+    padding-bottom: 28px;
+    border-bottom:  1px solid var(--rdt-borde);
+}
+
+.rdt-edicion-seccion:last-of-type {
+    border-bottom: none;
+}
+
+.rdt-edicion-titulo {
+    font-size:      0.88rem;
+    font-weight:    700;
+    color:          var(--rdt-primario);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin:         0 0 4px;
+}
+
+.rdt-edicion-desc-seccion {
+    font-size:   0.84rem;
+    color:       var(--rdt-subtexto);
+    font-style:  italic;
+    margin:      0 0 16px;
+}
+
+.rdt-edicion-grid {
+    display:               grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap:                   16px 24px;
+    margin-top:            16px;
+}
+
+.rdt-edicion-campo {
+    margin:         0;
+    display:        flex;
+    flex-direction: column;
+    gap:            4px;
+}
+
+/* Ocupa el ancho completo del grid */
+.rdt-edicion-campo--full {
+    grid-column: 1 / -1;
+}
+
+.rdt-edicion-campo label {
+    font-size:      0.78rem;
+    font-weight:    600;
+    color:          var(--rdt-subtexto);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.rdt-edicion-campo label .required {
+    color: #c0392b;
+}
+
+.rdt-edicion-campo .rdt-input {
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid var(--rdt-borde);
+    border-radius: 10px;
+    background:    var(--rdt-fondo-suave);
+    color:         var(--rdt-texto);
+    font-size:     0.92rem;
+    font-family:   var(--rdt-fuente);
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rdt-edicion-campo .rdt-input:focus {
+    outline:      none;
+    border-color: var(--rdt-primario);
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.12);
+}
+
+.rdt-edicion-desc {
+    font-size:  0.78rem;
+    color:      var(--rdt-subtexto);
+    font-style: italic;
+    margin-top: 2px;
+}
+
+.rdt-edicion-acciones {
+    margin:     24px 0 0;
+    text-align: left;
+}
+
+.rdt-edicion-btn-guardar {
+    display:        inline-block;
+    padding:        12px 28px;
+    background:     var(--rdt-primario);
+    color:          #ffffff;
+    border:         none;
+    border-radius:  var(--rdt-radio);
+    font-size:      0.92rem;
+    font-weight:    600;
+    font-family:    var(--rdt-fuente);
+    cursor:         pointer;
+    letter-spacing: 0.02em;
+    transition:     background 0.2s ease, transform 0.1s ease;
+}
+
+.rdt-edicion-btn-guardar:hover {
+    background: var(--rdt-primario-hover);
+    transform:  translateY(-1px);
+}
+
+@media (max-width: 520px) {
+    .rdt-edicion-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rdt-edicion-btn-guardar {
+        width:      100%;
+        text-align: center;
+    }
+}
+
+/* -- Botón de registro debajo del login ---------------------------------- */
+.rdt-registro-trigger {
+    margin-top:  20px;
+    padding-top: 20px;
+    border-top:  1px solid #e6e0e2;
+    text-align:  center;
+}
+
+.rdt-registro-separador {
+    font-size:  0.84rem;
+    color:      #6b6067;
+    margin:     0 0 10px;
+}
+
+.rdt-btn-registro-link {
+    background:      transparent;
+    border:          1.5px solid #4A7A84;
+    color:           #4A7A84;
+    border-radius:   8px;
+    padding:         10px 22px;
+    font-size:       0.9rem;
+    font-weight:     600;
+    cursor:          pointer;
+    font-family:     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition:      background 0.15s ease, color 0.15s ease;
+    width:           100%;
+}
+
+.rdt-btn-registro-link:hover {
+    background: #4A7A84;
+    color:      #ffffff;
+}
+
+/* -- Overlay del popup de registro --------------------------------------- */
+.rdt-overlay {
+    display:         none;
+    position:        fixed;
+    inset:           0;
+    background:      rgba(13, 20, 26, 0.55);
+    z-index:         99999;
+    justify-content: center;
+    align-items:     flex-start;
+    padding:         40px 16px;
+    overflow-y:      auto;
+}
+
+.rdt-overlay--activo {
+    display: flex;
+}
+
+/* -- Popup --------------------------------------------------------------- */
+.rdt-popup {
+    background:    #ffffff;
+    border-radius: 14px;
+    box-shadow:    0 12px 48px rgba(0, 0, 0, 0.18);
+    width:         100%;
+    max-width:     520px;
+    margin:        auto;
+    animation:     rdt-popup-in 0.25s ease;
+    overflow:      hidden;
+}
+
+@keyframes rdt-popup-in {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.rdt-popup-header {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         18px 24px;
+    background:      #d6eaed;
+    border-bottom:   1px solid #e6e0e2;
+}
+
+.rdt-popup-titulo {
+    font-size:      0.92rem;
+    font-weight:    700;
+    color:          #4A7A84;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin:         0;
+}
+
+.rdt-popup-cerrar {
+    background:  transparent;
+    border:      none;
+    font-size:   1.4rem;
+    color:       #6b6067;
+    cursor:      pointer;
+    line-height: 1;
+    padding:     0 4px;
+    transition:  color 0.15s ease;
+}
+
+.rdt-popup-cerrar:hover {
+    color: #0d141a;
+}
+
+.rdt-popup-body {
+    padding: 24px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Campos del popup */
+.rdt-popup-form .rdt-form-row {
+    margin-bottom: 14px;
+}
+
+.rdt-popup-form .rdt-form-row label {
+    display:        block;
+    font-size:      0.78rem;
+    font-weight:    600;
+    color:          #6b6067;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom:  5px;
+}
+
+.rdt-popup-form .rdt-form-row label .required {
+    color: #c0392b;
+}
+
+.rdt-popup-form .rdt-input {
+    display:       block;
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid #e6e0e2;
+    border-radius: 10px;
+    background:    #faf8f6;
+    color:         #0d141a;
+    font-size:     0.92rem;
+    font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rdt-popup-form .rdt-input:focus {
+    outline:      none;
+    border-color: #4A7A84;
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.12);
+}
+
+.rdt-popup-form .rdt-input::placeholder {
+    color: #a09499;
+}
+
+.rdt-popup-form .rdt-registro-centro {
+    margin-top:  16px;
+    padding-top: 14px;
+    border-top:  2px solid #ecc77c;
+}
+
+.rdt-popup-form .rdt-registro-titulo {
+    font-size:      0.8rem;
+    font-weight:    700;
+    color:          #4A7A84;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin:         0 0 12px;
+}
+
+/* Checkbox en el popup */
+.rdt-popup-form .rdt-form-row--terminos {
+    margin-top: 12px;
+}
+
+.rdt-popup-form .rdt-label-terminos {
+    display:        flex;
+    align-items:    flex-start;
+    gap:            10px;
+    font-size:      0.86rem;
+    color:          #0d141a;
+    cursor:         pointer;
+    line-height:    1.5;
+    font-weight:    normal;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.rdt-popup-form .rdt-label-terminos a {
+    color:           #4A7A84;
+    text-decoration: underline;
+}
+
+.rdt-popup-form .rdt-checkbox {
+    width:        18px;
+    height:       18px;
+    min-width:    18px;
+    margin-top:   3px;
+    accent-color: #4A7A84;
+    cursor:       pointer;
+}
+
+/* Botón submit del popup */
+.rdt-popup-acciones {
+    margin-top: 20px;
+}
+
+.rdt-btn-submit {
+    display:       block;
+    width:         100%;
+    padding:       13px;
+    background:    #4A7A84;
+    color:         #ffffff;
+    border:        none;
+    border-radius: 10px;
+    font-size:     0.95rem;
+    font-weight:   600;
+    font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    cursor:        pointer;
+    transition:    background 0.2s ease, transform 0.1s ease;
+}
+
+.rdt-btn-submit:hover {
+    background: #3a6470;
+    transform:  translateY(-1px);
+}
+
+@media (max-width: 540px) {
+    .rdt-popup-body {
+        padding:    16px;
+        max-height: 80vh;
+    }
+
+    .rdt-overlay {
+        padding: 16px 8px;
+    }
+}
+
+/* -- Checkbox de términos y condiciones ---------------------------------- */
+.rdt-form-row--terminos {
+    margin-top: 8px;
+}
+
+.rdt-label-terminos {
+    display:     flex;
+    align-items: flex-start;
+    gap:         10px;
+    font-size:   0.88rem;
+    color:       var(--rdt-texto);
+    cursor:      pointer;
+    line-height: 1.5;
+}
+
+.rdt-checkbox {
+    width:         18px;
+    height:        18px;
+    min-width:     18px;
+    margin-top:    2px;
+    accent-color:  var(--rdt-primario);
+    cursor:        pointer;
+}
+
+/* -- Sección de registro del centro estético (formulario de Woo) -------- */
+.rdt-registro-centro {
+    margin-top:    24px;
+    padding-top:   20px;
+    border-top:    2px solid var(--rdt-acento-claro);
+}
+
+.rdt-registro-titulo {
+    font-size:   0.95rem;
+    font-weight: 700;
+    color:       var(--rdt-primario);
+    margin:      0 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rdt-form-row {
+    margin-bottom: 14px;
+}
+
+.rdt-form-row label {
+    display:        block;
+    font-size:      0.8rem;
+    font-weight:    600;
+    color:          var(--rdt-subtexto);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom:  4px;
+}
+
+.rdt-form-row label .required {
+    color: #c0392b;
+}
+
+.rdt-form-row .rdt-input {
+    display:       block;
+    width:         100%;
+    box-sizing:    border-box;
+    padding:       10px 14px;
+    border:        1.5px solid var(--rdt-borde);
+    border-radius: 10px;
+    background:    var(--rdt-fondo-suave);
+    color:         var(--rdt-texto);
+    font-size:     0.92rem;
+    font-family:   var(--rdt-fuente);
+    transition:    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rdt-form-row .rdt-input:focus {
+    outline:      none;
+    border-color: var(--rdt-primario);
+    box-shadow:   0 0 0 3px rgba(74, 122, 132, 0.12);
+}
+
+.rdt-form-row .rdt-input::placeholder {
+    color: #a09499;
+}
